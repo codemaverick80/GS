@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GS.Core.Database.Entities;
+using GS.Core.Database.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GS.Core.Api.Controllers
@@ -12,19 +13,19 @@ namespace GS.Core.Api.Controllers
     public class ValuesController : ControllerBase
     {
 
-        private readonly SGDbContext _context;
+        private readonly IGenresRepository _genresRepository;
 
 
-        public ValuesController(SGDbContext context)
+        public ValuesController(IGenresRepository genresRepository)
         {
-            _context = context;
+            _genresRepository = genresRepository;
         }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
-        {            
-            var genre = _context.Genres.ToList();
-            var subGenres = _context.SubGenres.ToList();
+        {
+            var genre = _genresRepository.GetAll().ToList();
+            //var subGenres = _context.SubGenres.ToList();
             return new string[] { "value1", "value2" };
         }
 
