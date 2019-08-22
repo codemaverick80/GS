@@ -13,13 +13,13 @@ namespace GS.Core.Database.Entities
         {
         }
 
-        public virtual DbSet<TblAlbums> TblAlbums { get; set; }
-        public virtual DbSet<TblArtistBasicInfo> TblArtistBasicInfo { get; set; }
-        public virtual DbSet<TblArtists> TblArtists { get; set; }
-        public virtual DbSet<TblGenreStyles> TblGenreStyles { get; set; }
-        public virtual DbSet<TblGenres> TblGenres { get; set; }
-        public virtual DbSet<TblSubGenres> TblSubGenres { get; set; }
-        public virtual DbSet<TblTracks> TblTracks { get; set; }
+        public virtual DbSet<Albums> Albums { get; set; }
+        public virtual DbSet<ArtistBasicInfo> ArtistBasicInfo { get; set; }
+        public virtual DbSet<Artists> Artists { get; set; }
+        public virtual DbSet<GenreStyles> GenreStyles { get; set; }
+        public virtual DbSet<Genres> Genres { get; set; }
+        public virtual DbSet<TblSubGenres> SubGenres { get; set; }
+        public virtual DbSet<Tracks> Tracks { get; set; }
 
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //        {
@@ -50,7 +50,7 @@ namespace GS.Core.Database.Entities
             modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
             /* Ablum Table */
-            modelBuilder.Entity<TblAlbums>(entity =>
+            modelBuilder.Entity<Albums>(entity =>
             {
                 entity.ToTable("TBL_ALBUMS");
 
@@ -120,14 +120,14 @@ namespace GS.Core.Database.Entities
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Artist)
-                    .WithMany(p => p.TblAlbums)
+                    .WithMany(p => p.Albums)
                     .HasForeignKey(d => d.ArtistId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TBL_ALBUMS_MAIN_TBL_ARTISTS");
             });
 
             /* ArtistBasicInfo Table*/
-            modelBuilder.Entity<TblArtistBasicInfo>(entity =>
+            modelBuilder.Entity<ArtistBasicInfo>(entity =>
             {
                 entity.HasKey(e => e.ArtistId);
 
@@ -153,14 +153,14 @@ namespace GS.Core.Database.Entities
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Artist)
-                    .WithOne(p => p.TblArtistBasicInfo)
-                    .HasForeignKey<TblArtistBasicInfo>(d => d.ArtistId)
+                    .WithOne(p => p.ArtistBasicInfo)
+                    .HasForeignKey<ArtistBasicInfo>(d => d.ArtistId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TBL_ARTIST_BASIC_INFO_TBL_ARTISTS");
             });
 
             /* Artist Table */
-            modelBuilder.Entity<TblArtists>(entity =>
+            modelBuilder.Entity<Artists>(entity =>
             {
                 entity.ToTable("TBL_ARTISTS");
 
@@ -209,7 +209,7 @@ namespace GS.Core.Database.Entities
             });
 
             /* GenreStyle Table */
-            modelBuilder.Entity<TblGenreStyles>(entity =>
+            modelBuilder.Entity<GenreStyles>(entity =>
             {
                 entity.ToTable("TBL_GENRE_STYLES");
 
@@ -238,14 +238,14 @@ namespace GS.Core.Database.Entities
                 entity.Property(e => e.SubGenreId).HasColumnName("SUB_GENRE_ID");
 
                 entity.HasOne(d => d.SubGenre)
-                    .WithMany(p => p.TblGenreStyles)
+                    .WithMany(p => p.GenreStyles)
                     .HasForeignKey(d => d.SubGenreId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TBL_GENRE_STYLES_TBL_SUB_GENRES");
             });
 
             /* Genres Table */
-            modelBuilder.Entity<TblGenres>(entity =>
+            modelBuilder.Entity<Genres>(entity =>
             {
                 entity.ToTable("TBL_GENRES");
 
@@ -301,7 +301,7 @@ namespace GS.Core.Database.Entities
             });
 
             /* Tracks Table */
-            modelBuilder.Entity<TblTracks>(entity =>
+            modelBuilder.Entity<Tracks>(entity =>
             {
                 entity.ToTable("TBL_TRACKS");
 
@@ -348,7 +348,7 @@ namespace GS.Core.Database.Entities
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Album)
-                    .WithMany(p => p.TblTracks)
+                    .WithMany(p => p.Tracks)
                     .HasForeignKey(d => d.AlbumId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TBL_TRACKS_TBL_ALBUMS");

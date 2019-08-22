@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace GS.Core.Database.Entities
 {
-    public partial class TblGenres
+    public partial class Genres
     {
-        public TblGenres()
+        public Genres()
         {
-            TblArtists = new HashSet<TblArtists>();
+            TblArtists = new HashSet<Artists>();
             TblSubGenres = new HashSet<TblSubGenres>();
         }
 
@@ -16,7 +16,7 @@ namespace GS.Core.Database.Entities
         public string Genre { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<TblArtists> TblArtists { get; set; }
+        public virtual ICollection<Artists> TblArtists { get; set; }
         public virtual ICollection<TblSubGenres> TblSubGenres { get; set; }
     }
 }

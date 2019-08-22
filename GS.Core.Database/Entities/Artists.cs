@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace GS.Core.Database.Entities
 {
-    public partial class TblArtists
+    public partial class Artists
     {
-        public TblArtists()
+        public Artists()
         {
-            TblAlbums = new HashSet<TblAlbums>();
+            Albums = new HashSet<Albums>();
         }
 
         public long Id { get; set; }
@@ -19,8 +19,8 @@ namespace GS.Core.Database.Entities
         public string SmallThumbnail { get; set; }
         public string BigThumbnail { get; set; }
 
-        public virtual TblGenres Genre { get; set; }
-        public virtual TblArtistBasicInfo TblArtistBasicInfo { get; set; }
-        public virtual ICollection<TblAlbums> TblAlbums { get; set; }
+        public virtual Genres Genre { get; set; }
+        public virtual ArtistBasicInfo ArtistBasicInfo { get; set; }
+        public virtual ICollection<Albums> Albums { get; set; }
     }
 }

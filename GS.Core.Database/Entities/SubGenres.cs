@@ -7,7 +7,7 @@ namespace GS.Core.Database.Entities
     {
         public TblSubGenres()
         {
-            TblGenreStyles = new HashSet<TblGenreStyles>();
+            GenreStyles = new HashSet<GenreStyles>();
         }
 
         public long Id { get; set; }
@@ -16,7 +16,7 @@ namespace GS.Core.Database.Entities
         public string SubGenre { get; set; }
         public string Description { get; set; }
 
-        public virtual TblGenres Genre { get; set; }
-        public virtual ICollection<TblGenreStyles> TblGenreStyles { get; set; }
+        public virtual Genres Genre { get; set; }
+        public virtual ICollection<GenreStyles> GenreStyles { get; set; }
     }
 }

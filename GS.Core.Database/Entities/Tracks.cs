@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GS.Core.Database.Entities
 {
-    public partial class TblTracks
+    public partial class Tracks
     {
         public int Id { get; set; }
         public string Trackid { get; set; }
@@ -14,6 +14,6 @@ namespace GS.Core.Database.Entities
         public string Featuring { get; set; }
         public string Duration { get; set; }
 
-        public virtual TblAlbums Album { get; set; }
+        public virtual  Albums Album { get; set; }
     }
 }

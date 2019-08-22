@@ -23,8 +23,8 @@ namespace GS.Core.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {            
-            var genre = _context.TblGenres.ToList();
-
+            var genre = _context.Genres.ToList();
+            var subGenres = _context.SubGenres.ToList();
             return new string[] { "value1", "value2" };
         }
 
