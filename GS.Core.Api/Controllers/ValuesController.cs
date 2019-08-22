@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GS.Core.Database.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GS.Core.Api.Controllers
@@ -10,10 +11,20 @@ namespace GS.Core.Api.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+
+        private readonly SGDbContext _context;
+
+
+        public ValuesController(SGDbContext context)
+        {
+            _context = context;
+        }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
-        {
+        {            
+            var genre = _context.TblGenres.ToList();
+
             return new string[] { "value1", "value2" };
         }
 
