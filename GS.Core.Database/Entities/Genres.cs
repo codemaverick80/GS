@@ -7,8 +7,8 @@ namespace GS.Core.Database.Entities
     {
         public Genres()
         {
-            TblArtists = new HashSet<Artists>();
-            TblSubGenres = new HashSet<TblSubGenres>();
+            Artists = new HashSet<Artists>();
+            SubGenres = new HashSet<SubGenres>();
         }
 
         public long Id { get; set; }
@@ -16,7 +16,7 @@ namespace GS.Core.Database.Entities
         public string Genre { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<Artists> TblArtists { get; set; }
-        public virtual ICollection<TblSubGenres> TblSubGenres { get; set; }
+        public virtual ICollection<Artists> Artists { get; set; }
+        public virtual ICollection<SubGenres> SubGenres { get; set; }
     }
 }

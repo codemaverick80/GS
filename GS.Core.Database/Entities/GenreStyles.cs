@@ -11,6 +11,6 @@ namespace GS.Core.Database.Entities
         public string Style { get; set; }
         public string Description { get; set; }
 
-        public virtual TblSubGenres SubGenre { get; set; }
+        public virtual SubGenres SubGenre { get; set; }
     }
 }

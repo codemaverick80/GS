@@ -22,15 +22,16 @@ namespace GS.Core.Api.Controllers
         }
         // GET api/values
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public List<Genres> Get()
         {
             var genre = _genresRepo.GetAll().ToList();
 
-            var g = await _genresRepo.GetAllAsync();
-            //var subGenres = _context.SubGenres.ToList();
-            return Ok(g);
+            //var g = await _genresRepo.GetAllAsync();
+            //var find = _genresRepo.FindWithSubGenres(gen => gen.Id == 12).ToList(); 
+            //var allwithSubgenres = _genresRepo.GetAllWithSubGenres().ToList();
+            //return Ok(genre);
 
-            //return new string[] { "value1", "value2" };
+            return genre;
         }
 
         // GET api/values/5

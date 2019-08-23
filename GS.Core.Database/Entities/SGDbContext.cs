@@ -18,7 +18,7 @@ namespace GS.Core.Database.Entities
         public virtual DbSet<Artists> Artists { get; set; }
         public virtual DbSet<GenreStyles> GenreStyles { get; set; }
         public virtual DbSet<Genres> Genres { get; set; }
-        public virtual DbSet<TblSubGenres> SubGenres { get; set; }
+        public virtual DbSet<SubGenres> SubGenres { get; set; }
         public virtual DbSet<Tracks> Tracks { get; set; }
 
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -202,7 +202,7 @@ namespace GS.Core.Database.Entities
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Genre)
-                    .WithMany(p => p.TblArtists)
+                    .WithMany(p => p.Artists)
                     .HasForeignKey(d => d.GenreId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TBL_ARTISTS_MAIN_TBL_GENRES");
@@ -271,7 +271,7 @@ namespace GS.Core.Database.Entities
             });
 
             /* SubGenres Table */
-            modelBuilder.Entity<TblSubGenres>(entity =>
+            modelBuilder.Entity<SubGenres>(entity =>
             {
                 entity.ToTable("TBL_SUB_GENRES");
 
@@ -294,7 +294,7 @@ namespace GS.Core.Database.Entities
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Genre)
-                    .WithMany(p => p.TblSubGenres)
+                    .WithMany(p => p.SubGenres)
                     .HasForeignKey(d => d.GenreId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TBL_SUB_GENRES_TBL_GENRES");

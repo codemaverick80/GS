@@ -10,6 +10,8 @@ namespace GS.Core.Database.Repository.Interfaces
 
         IEnumerable<T> Find(Func<T, bool> predicate);
 
+        Task<T> FindAsync(Func<T, bool> predicate);
+
         T GetById(int id);
 
         void Create(T entity);

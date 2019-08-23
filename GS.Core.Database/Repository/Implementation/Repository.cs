@@ -44,6 +44,13 @@ namespace GS.Core.Database.Repository.Implementation
             return _context.Set<T>().Where(predicate);
         }
 
+        public async Task<T> FindAsync(Func<T, bool> predicate)
+        {
+
+            return await _context.Set<T>().FindAsync(predicate);
+
+        }
+
         public IEnumerable<T> GetAll()
         {
             return _context.Set<T>();

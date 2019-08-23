@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace GS.Core.Database.Entities
 {
-    public partial class TblSubGenres
+    public partial class SubGenres
     {
-        public TblSubGenres()
+        public SubGenres()
         {
             GenreStyles = new HashSet<GenreStyles>();
         }
