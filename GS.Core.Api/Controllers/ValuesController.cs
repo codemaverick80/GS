@@ -13,20 +13,24 @@ namespace GS.Core.Api.Controllers
     public class ValuesController : ControllerBase
     {
 
-        private readonly IGenresRepository _genresRepository;
+        private readonly IGenresRepository _genresRepo;
 
 
         public ValuesController(IGenresRepository genresRepository)
         {
-            _genresRepository = genresRepository;
+            _genresRepo = genresRepository;
         }
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult> Get()
         {
-            var genre = _genresRepository.GetAll().ToList();
+            var genre = _genresRepo.GetAll().ToList();
+
+            var g = await _genresRepo.GetAllAsync();
             //var subGenres = _context.SubGenres.ToList();
-            return new string[] { "value1", "value2" };
+            return Ok(g);
+
+            //return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5

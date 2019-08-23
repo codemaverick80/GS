@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GS.Core.Database.Repository.Interfaces
 {
@@ -18,5 +19,7 @@ namespace GS.Core.Database.Repository.Interfaces
         void Delete(T entity);
 
         int Count(Func<T, bool> predicate);
+
+        Task<T[]> GetAllAsync();
     }
 }

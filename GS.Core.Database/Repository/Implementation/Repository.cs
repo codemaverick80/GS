@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using GS.Core.Database.Entities;
 using GS.Core.Database.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace GS.Core.Database.Repository.Implementation
 {
@@ -47,6 +49,13 @@ namespace GS.Core.Database.Repository.Implementation
             return _context.Set<T>();
         }
 
+
+        public async Task<T[]> GetAllAsync()
+        {
+            IQueryable<T> query = _context.Set<T>();
+            return await query.ToArrayAsync();
+        }
+
         public T GetById(int id)
         {
             return _context.Set<T>().Find(id);
@@ -57,5 +66,8 @@ namespace GS.Core.Database.Repository.Implementation
             _context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             Save();
         }
+
+
+
     }
 }
