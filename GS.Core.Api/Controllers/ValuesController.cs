@@ -21,18 +21,37 @@ namespace GS.Core.Api.Controllers
             _genresRepo = genresRepository;
         }
         // GET api/values
+        //[HttpGet]
+        //public List<ActionResult<Genres>> Get()
+        //{
+        //    //var genre = _genresRepo.GetAll().ToList();
+
+        //    //var g = await _genresRepo.GetAllAsync();
+        //    var find = _genresRepo.FindWithSubGenres(gen => gen.Id == 12).ToList(); 
+        //    var allwithSubgenres = _genresRepo.GetAllWithSubGenres().ToList();
+        //    return Ok(find);
+
+        //    //return find;
+        //}
+
         [HttpGet]
-        public List<Genres> Get()
+        public async Task<ActionResult> Get()
         {
-            var genre = _genresRepo.GetAll().ToList();
+            try
+            {
+                var genre = _genresRepo.GetAll().ToList();
+                var result = await  _genresRepo.GetAllAsync();
+                var find = _genresRepo.FindWithSubGenres(gen => gen.Id == 12).ToList();              
 
-            //var g = await _genresRepo.GetAllAsync();
-            //var find = _genresRepo.FindWithSubGenres(gen => gen.Id == 12).ToList(); 
-            //var allwithSubgenres = _genresRepo.GetAllWithSubGenres().ToList();
-            //return Ok(genre);
-
-            return genre;
+                return Ok(find);
+            }
+            catch (Exception ex)
+            {
+                // TODO Add Logging
+                return null;
+            }
         }
+
 
         // GET api/values/5
         [HttpGet("{id}")]
