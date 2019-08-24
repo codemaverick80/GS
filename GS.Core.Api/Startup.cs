@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GS.Core.Api.Options;
 using GS.Core.Database.Entities;
 using GS.Core.Database.Repository.Implementation;
 using GS.Core.Database.Repository.Interfaces;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace GS.Core.Api
 {
@@ -40,6 +42,13 @@ namespace GS.Core.Api
                  .AddJsonOptions(options => {
                      options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                  });
+
+
+            services.AddSwaggerGen(x =>
+            {
+                x.SwaggerDoc("v1", new Info { Title = "SG API", Version = "v1" });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +63,22 @@ namespace GS.Core.Api
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+
+            /* Swagger Configuration - START*/
+            var swaggerOptions = new Options.SwaggerOptions();
+            Configuration.GetSection(nameof(Options.SwaggerOptions)).Bind(swaggerOptions);
+            app.UseSwagger(option =>
+            {
+                option.RouteTemplate = swaggerOptions.JsonRoute;
+            });
+            app.UseSwaggerUI(option =>
+            {
+                option.SwaggerEndpoint(swaggerOptions.UiEndpoint, swaggerOptions.Description);
+            });
+            /* Swagger Configuration - END*/
+
+
 
             app.UseHttpsRedirection();
             app.UseMvc();
