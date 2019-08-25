@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GS.Core.Api.Options;
+using GS.Core.Api.ServiceConfiguration;
 using GS.Core.Database.Entities;
 using GS.Core.Database.Repository.Implementation;
 using GS.Core.Database.Repository.Interfaces;
@@ -33,21 +34,30 @@ namespace GS.Core.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddTransient<IGenresRepository, GenresRepository>();
 
-            services.AddDbContext<SGDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
+            #region "Clean ConfigureService Method"
+            /* this section is moved to ServiceConfiguration folder for code clean up purpose only */
+            //services.AddTransient<IGenresRepository, GenresRepository>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                 .AddJsonOptions(options => {
-                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                 });
+            //services.AddDbContext<SGDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
 
 
-            services.AddSwaggerGen(x =>
-            {
-                x.SwaggerDoc("v1", new Info { Title = "SG API", Version = "v1" });
-            });
+
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            //     .AddJsonOptions(options => {
+            //         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            //     });
+
+
+            //services.AddSwaggerGen(x =>
+            //{
+            //    x.SwaggerDoc("v1", new Info { Title = "SG API", Version = "v1" });
+            //});
+
+            #endregion
+
+            services.ConfigureGSServicesInAssembly(Configuration);
 
         }
 

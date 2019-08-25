@@ -40,10 +40,11 @@ namespace GS.Core.Api.Controllers
             try
             {
                 var genre = _genresRepo.GetAll().ToList();
-                var result = await  _genresRepo.GetAllAsync();
-                var find = _genresRepo.FindWithSubGenres(gen => gen.Id == 12).ToList();              
+                //var result = await  _genresRepo.GetAllAsync();
+                //var find = _genresRepo.FindWithSubGenres(gen => gen.Id == 12).ToList();              
 
-                return Ok(find);
+                // return Ok(new string[] { "value1", "value2" });
+                return Ok(genre);
             }
             catch (Exception ex)
             {
