@@ -8,8 +8,13 @@ namespace GS.Core.Database.Repository.Interfaces
 {
     public interface IGenresRepository : IRepository<Genres>
     {
-        IEnumerable<Genres> GetAllWithSubGenres();
-        IEnumerable<Genres> FindWithSubGenres(Func<Genres, bool> predicate);
+
+        Task<Genres> GetGenresByIdAsync(int id, bool includeArtists = false);
+        Task<IEnumerable<Genres>> GetAllGenresAsync(bool includeArtists = false);
+        Task<IEnumerable<Genres>> GetAllGenresAsync(bool includeArtists = false, bool includeSubGenres = false);
+
+        //IEnumerable<Genres> GetAllWithSubGenres();
+        //IEnumerable<Genres> FindWithSubGenres(Func<Genres, bool> expression);
         
     }
 }

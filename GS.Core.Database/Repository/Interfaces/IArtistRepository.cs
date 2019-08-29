@@ -7,10 +7,13 @@ namespace GS.Core.Database.Repository.Interfaces
 {
     public interface IArtistRepository:IRepository<Artists>
     {
-        Task<IEnumerable<Artists>> GetAllArtistAsync(bool includeAlbums = false);
-        Task<Artists> GetArtistAsync(int id, bool includeAlbums=false);
+        //Task<IEnumerable<Artists>> GetAllArtistAsync();
 
-       Task<IEnumerable<Artists>> GetArtistsWithAlbumsAsync(int pageIndex, int pageSize);
+        Task<IEnumerable<Artists>> GetAllArtistAsync(bool includeAlbums = false);
+
+        Task<Artists> GetArtistByIdAsync(int id, bool includeAlbums=false);
+
+        Task<IEnumerable<Artists>> GetArtistsWithAlbumsAsync(int pageIndex, int pageSize);
 
 
     }

@@ -1,5 +1,5 @@
 ﻿using System;
-using AutoMapper;
+using GS.Core.Api.Services.LoggerService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,8 +13,8 @@ namespace GS.Core.Api.ServiceConfiguration
         public void GSConfigureService(IServiceCollection services, IConfiguration configuration)
         {
 
-            services.AddAutoMapper(typeof(Startup));
 
+            services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                  .AddJsonOptions(options => {
                      options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;

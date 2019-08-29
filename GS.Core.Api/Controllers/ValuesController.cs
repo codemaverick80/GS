@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GS.Core.Api.Services.LoggerService;
 using GS.Core.Database.Entities;
 using GS.Core.Database.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,15 @@ namespace GS.Core.Api.Controllers
 
         private readonly IGenresRepository _genresRepo;
         private readonly IArtistRepository _artistRepo;
+        private ILoggerManager _logger;
 
-        public ValuesController(IGenresRepository genresRepository,IArtistRepository artistRepository)
+        public ValuesController(IGenresRepository genresRepository
+            ,IArtistRepository artistRepository
+            ,ILoggerManager logger)
         {
             _genresRepo = genresRepository;
             _artistRepo = artistRepository;
+            _logger = logger;
         }
         // GET api/values
         //[HttpGet]
@@ -36,24 +41,30 @@ namespace GS.Core.Api.Controllers
         //}
 
         [HttpGet]
-        public ActionResult Get()
+        public  ActionResult<IEnumerable<string>> Get()
         {
-            try
-            {
-                //var artistwithAlbum = _artistRepo.GetArtistsWithAlbums(1, 2);
+            //try
+            //{
+            //    var genres =await _genresRepo.GetGenresByIdAsync(12,true);
 
-                //var genre = _genresRepo.GetAll().ToList();
-                ////var result = await  _genresRepo.GetAllAsync();
-                ////var find = _genresRepo.FindWithSubGenres(gen => gen.Id == 12).ToList();              
+            //    //var genre = _genresRepo.GetAll().ToList();
+            //    ////var result = await  _genresRepo.GetAllAsync();
+            //    ////var find = _genresRepo.FindWithSubGenres(gen => gen.Id == 12).ToList();              
 
-                return Ok(new string[] { "value1", "value2" });
-                //return Ok(artistwithAlbum);
-            }
-            catch (Exception)
-            {
-                // TODO Add Logging
-                return null;
-            }
+            //   // return Ok(new string[] { "value1", "value2" });
+            //    return Ok(genres);
+            //}
+            //catch (Exception ex)
+            //{
+            //    // TODO Add Logging
+            //    return null;
+            //}
+
+            _logger.LogInfo("Fetching all the Students from the storage");
+
+            throw new Exception("Exception while fetching all the students from the storage.");
+
+            return Ok();
         }
 
 

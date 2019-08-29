@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using GS.Core.Api.Extension;
 using GS.Core.Api.Options;
 using GS.Core.Api.ServiceConfiguration;
+using GS.Core.Api.Services.LoggerService;
 using GS.Core.Database.Entities;
 using GS.Core.Database.Repository.Implementation;
 using GS.Core.Database.Repository.Interfaces;
@@ -56,13 +59,15 @@ namespace GS.Core.Api
             //});
 
             #endregion
-            
+
+            services.AddAutoMapper(typeof(Startup));
+
             services.ConfigureGSServicesInAssembly(Configuration);
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerManager logger)
         {
             if (env.IsDevelopment())
             {
@@ -88,7 +93,8 @@ namespace GS.Core.Api
             });
             /* Swagger Configuration - END*/
 
-
+            //app.ConfigureExceptionHandler(logger);
+            app.ConfigureCustomExceptionMiddleware();
 
             app.UseHttpsRedirection();
             app.UseMvc();

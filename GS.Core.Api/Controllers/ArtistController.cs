@@ -27,19 +27,51 @@ namespace GS.Core.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<ArtistsModel[]>> Get()
         {
-            var dbReults = await _artistRepo.GetArtistsWithAlbumsAsync(1, 10);          
-            return _mapper.Map<ArtistsModel[]>(dbReults);
+            try
+            {
+                var dbReults = await _artistRepo.GetArtistsWithAlbumsAsync(1, 10);
+                //var art=  _artistRepo.FindByCondition(a => a.Id.Equals(107)).ToList();
+                return _mapper.Map<ArtistsModel[]>(dbReults);
+
+
+            }
+            catch (Exception ex)
+            {
+                //TODO add logging
+                return StatusCode(500, "Internal Server Error!");
+            }
+
         }
 
         // GET api/artist/107
         [HttpGet("{id}")]
         public async Task<ActionResult<ArtistsModel>> Get(int id)
         {
-            var dbresult = await _artistRepo.GetArtistAsync(id);
-            if (dbresult == null) return NotFound();
-                       
-            return _mapper.Map<ArtistsModel>(dbresult);
+            
+                var dbresult = await _artistRepo.GetArtistByIdAsync(id, true);
+                if (dbresult == null) return NotFound();
+                return _mapper.Map<ArtistsModel>(dbresult);
+            
         }
+
+
+        // GET api/artist/107
+        [HttpGet("search")]
+        public async Task<ActionResult<ArtistsModel>> SearchById(int id)
+        {
+            try
+            {
+                var dbresult = await _artistRepo.GetArtistByIdAsync(id, true);
+                if (dbresult == null) return NotFound();
+                return _mapper.Map<ArtistsModel>(dbresult);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
+
 
         // POST api/artist
         [HttpPost]

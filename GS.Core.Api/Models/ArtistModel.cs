@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace GS.Core.Api.Models
 {
     public class ArtistsModel
@@ -13,6 +15,8 @@ namespace GS.Core.Api.Models
         public string SmallThumbnail { get; set; }
         public string BigThumbnail { get; set; }
 
+
+        public ICollection<AlbumModel> Albums { get; set; }
         //public virtual Genres Genre { get; set; }
         //public virtual ArtistBasicInfo ArtistBasicInfo { get; set; }
         //public virtual ICollection<Albums> Albums { get; set; }
@@ -27,7 +31,7 @@ namespace GS.Core.Api.Models
             public string ArtistBasicInfoDied { get; set; }
             public string ArtistBasicInfoAka { get; set; }
         * 
-        */      
+        */
 
 
         /*
@@ -42,6 +46,9 @@ namespace GS.Core.Api.Models
         public string Born { get; set; }
         public string Died { get; set; }
         public string AlsoKnownAs { get; set; }
+
+
+       
 
     }
 }
