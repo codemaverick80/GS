@@ -8,7 +8,7 @@ namespace GS.Core.Database.Repository.Interfaces
 {
     public interface IGenresRepository : IRepository<Genres>
     {
-        IQueryable<Genres> GetAllWithSubGenres();
+        IEnumerable<Genres> GetAllWithSubGenres();
         IEnumerable<Genres> FindWithSubGenres(Func<Genres, bool> predicate);
         
     }

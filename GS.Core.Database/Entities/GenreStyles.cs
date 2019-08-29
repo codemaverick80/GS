@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GS.Core.Database.Entities
 {
-    public partial class GenreStyles
+    public class GenreStyles
     {
         public long Id { get; set; }
         public string Styleid { get; set; }

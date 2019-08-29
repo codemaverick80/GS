@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using GS.Core.Database.Entities;
 using GS.Core.Database.Repository.Interfaces;
@@ -19,10 +20,11 @@ namespace GS.Core.Database.Repository.Implementation
         {
             return _context.Genres
                 .Include(a => a.SubGenres)
-                .Where(predicate);
+                .Where(predicate).ToList();
         }
+              
 
-        public IQueryable<Genres> GetAllWithSubGenres()
+        public IEnumerable<Genres> GetAllWithSubGenres()
         {            
            return _context.Genres.Include(a => a.SubGenres);            
         }

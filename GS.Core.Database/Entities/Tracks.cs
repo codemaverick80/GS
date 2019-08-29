@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GS.Core.Database.Entities
 {
-    public partial class Tracks
+    public class Tracks
     {
         public int Id { get; set; }
         public string Trackid { get; set; }

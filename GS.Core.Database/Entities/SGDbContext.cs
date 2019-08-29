@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace GS.Core.Database.Entities
 {
-    public partial class SGDbContext : DbContext
+    public class SGDbContext : DbContext
     {
         
         public SGDbContext(DbContextOptions<SGDbContext> options)

@@ -14,11 +14,12 @@ namespace GS.Core.Api.Controllers
     {
 
         private readonly IGenresRepository _genresRepo;
+        private readonly IArtistRepository _artistRepo;
 
-
-        public ValuesController(IGenresRepository genresRepository)
+        public ValuesController(IGenresRepository genresRepository,IArtistRepository artistRepository)
         {
             _genresRepo = genresRepository;
+            _artistRepo = artistRepository;
         }
         // GET api/values
         //[HttpGet]
@@ -35,18 +36,20 @@ namespace GS.Core.Api.Controllers
         //}
 
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public ActionResult Get()
         {
             try
             {
-                var genre = _genresRepo.GetAll().ToList();
-                //var result = await  _genresRepo.GetAllAsync();
-                //var find = _genresRepo.FindWithSubGenres(gen => gen.Id == 12).ToList();              
+                //var artistwithAlbum = _artistRepo.GetArtistsWithAlbums(1, 2);
 
-                // return Ok(new string[] { "value1", "value2" });
-                return Ok(genre);
+                //var genre = _genresRepo.GetAll().ToList();
+                ////var result = await  _genresRepo.GetAllAsync();
+                ////var find = _genresRepo.FindWithSubGenres(gen => gen.Id == 12).ToList();              
+
+                return Ok(new string[] { "value1", "value2" });
+                //return Ok(artistwithAlbum);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // TODO Add Logging
                 return null;

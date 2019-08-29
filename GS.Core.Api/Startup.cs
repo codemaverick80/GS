@@ -56,7 +56,7 @@ namespace GS.Core.Api
             //});
 
             #endregion
-
+            
             services.ConfigureGSServicesInAssembly(Configuration);
 
         }

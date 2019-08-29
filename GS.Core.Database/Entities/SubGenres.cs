@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GS.Core.Database.Entities
 {
-    public partial class SubGenres
+    public class SubGenres
     {
         public SubGenres()
         {
