@@ -16,7 +16,7 @@ namespace GS.Core.Api.Models
         public string BigThumbnail { get; set; }
 
 
-        public ICollection<AlbumModel> Albums { get; set; }
+        public ICollection<AlbumsModel> Albums { get; set; }
         //public virtual Genres Genre { get; set; }
         //public virtual ArtistBasicInfo ArtistBasicInfo { get; set; }
         //public virtual ICollection<Albums> Albums { get; set; }

@@ -15,7 +15,7 @@ namespace GS.Core.Api.ServiceConfiguration
         {
             services.AddTransient<IGenresRepository, GenresRepository>();
             services.AddTransient<IArtistRepository, ArtistsRepository>();
-
+            services.AddTransient<IAlbumRepository, AlbumRepository>();
            
             services.AddDbContext<SGDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DatabaseConnection")));

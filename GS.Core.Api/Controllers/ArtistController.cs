@@ -26,21 +26,10 @@ namespace GS.Core.Api.Controllers
         // GET: api/artist
         [HttpGet]
         public async Task<ActionResult<ArtistsModel[]>> Get()
-        {
-            try
-            {
-                var dbReults = await _artistRepo.GetArtistsWithAlbumsAsync(1, 10);
-                //var art=  _artistRepo.FindByCondition(a => a.Id.Equals(107)).ToList();
-                return _mapper.Map<ArtistsModel[]>(dbReults);
-
-
-            }
-            catch (Exception ex)
-            {
-                //TODO add logging
-                return StatusCode(500, "Internal Server Error!");
-            }
-
+        {            
+            var dbReults = await _artistRepo.GetArtistsWithAlbumsAsync(1, 10);
+            //var art=  _artistRepo.FindByCondition(a => a.Id.Equals(107)).ToList();
+            return _mapper.Map<ArtistsModel[]>(dbReults);
         }
 
         // GET api/artist/107
