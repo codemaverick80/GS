@@ -30,26 +30,24 @@ namespace GS.Core.Database.Repository.Implementation
         //    return await query.ToArrayAsync();
         //}
 
-        public async Task<IEnumerable<Artists>> GetAllArtistAsync(bool includeAlbums = false)
+        public async Task<IEnumerable<Artists>> GetAllArtistAsync(bool includeAlbums = false, int pageIndex = 1, int pageSize = 5)
         { 
             IQueryable<Artists> query = FindAll().Include(a => a.ArtistBasicInfo);
+
             if (includeAlbums)
             {
-                query = query
-                    .Include(artist => artist.Albums);
+                query = query.Include(artist => artist.Albums);
             }
 
-            return await query
-                .OrderBy(artist => artist.Id).ToListAsync();
+            query.OrderBy(a => a.Id)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize);
+
+            return await query.ToListAsync();
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="includeAlbums"></param>
-        /// <returns></returns>
+    
         public async Task<Artists> GetArtistByIdAsync(int id, bool includeAlbums = false)
         {
             IQueryable<Artists> query = FindAll().Include(a=>a.ArtistBasicInfo);
@@ -69,16 +67,16 @@ namespace GS.Core.Database.Repository.Implementation
 
         }
 
-        public async Task<IEnumerable<Artists>> GetArtistsWithAlbumsAsync(int pageIndex=1, int pageSize=10)
-        {
-            return await FindAll()
-                .Include(c => c.Albums)
-                .Include(c=>c.ArtistBasicInfo)
-                .OrderBy(c => c.Id)
-                .Skip((pageIndex - 1) * pageSize)
-                .Take(pageSize)                
-                .ToListAsync();            
-        }
+        //public async Task<IEnumerable<Artists>> GetArtistsWithAlbumsAsync(int pageIndex=1, int pageSize=10)
+        //{
+        //    return await FindAll()
+        //        .Include(c => c.Albums)
+        //        .Include(c=>c.ArtistBasicInfo)
+        //        .OrderBy(c => c.Id)
+        //        .Skip((pageIndex - 1) * pageSize)
+        //        .Take(pageSize)                
+        //        .ToListAsync();            
+        //}
         
     }
 }

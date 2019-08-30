@@ -16,7 +16,7 @@ namespace GS.Core.Database.Repository.Implementation
 
         }       
 
-        public async Task<IEnumerable<Genres>> GetAllGenresAsync(bool includeArtists = false)
+        public async Task<IEnumerable<Genres>> GetAllGenresAsync(bool includeArtists = false, int pageIndex = 1, int pageSize = 5)
         {
             IQueryable<Genres> query = FindAll();
 
@@ -25,25 +25,30 @@ namespace GS.Core.Database.Repository.Implementation
                 query = query.Include(genres => genres.Artists);
             }
 
-            return await query.OrderBy(g => g.Id).ToListAsync();
+            //Query It
+            query.OrderBy(g=>g.Id)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize);
+
+            return await query.ToListAsync();
         }
 
 
 
-        public async Task<IEnumerable<Genres>> GetAllGenresAsync(bool includeArtists = false, bool includeSubGenres = false)
-        {
-            IQueryable<Genres> query = FindAll();
-            if (includeArtists)
-            {
-                query = query.Include(g => g.Artists);
-            }
-            if (includeSubGenres)
-            {
-                query = query.Include(g => g.SubGenres);
-            }
+        //public async Task<IEnumerable<Genres>> GetAllGenresAsync(bool includeArtists = false, bool includeSubGenres = false)
+        //{
+        //    IQueryable<Genres> query = FindAll();
+        //    if (includeArtists)
+        //    {
+        //        query = query.Include(g => g.Artists);
+        //    }
+        //    if (includeSubGenres)
+        //    {
+        //        query = query.Include(g => g.SubGenres);
+        //    }
 
-            return await query.OrderBy(g => g.Id).ToListAsync();
-        }
+        //    return await query.OrderBy(g => g.Id).ToListAsync();
+        //}
         
 
 

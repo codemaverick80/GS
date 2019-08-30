@@ -11,35 +11,33 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GS.Core.Api.Controllers
 {
-    [Route("api/album/")]
-    public class AlbumController : ControllerBase
+    [Route("api/genres/")]
+    public class GenresController : ControllerBase
     {
-        protected readonly IAlbumRepository _albumRepo;
-        protected readonly IMapper _mapper;
 
-
-        public AlbumController(IAlbumRepository albumRepository, IMapper mapper)
+        private readonly IGenresRepository _genresRepository;
+        private readonly IMapper _mapper;
+        public GenresController(IGenresRepository genresRepository, IMapper mapper)
         {
-            _albumRepo = albumRepository;
+            _genresRepository = genresRepository;
             _mapper = mapper;
         }
 
-       
-        [HttpGet("get")]        
-        public async Task<ActionResult<AlbumsModel[]>> Get()
+        // GET: api/values
+        [HttpGet("get")]
+        public async Task<ActionResult<GenresModel[]>> Get()
         {
-            var result = await _albumRepo.GetAlbumsWithTracksAsync(false,1,20);
-
-            return _mapper.Map<AlbumsModel[]>(result);
+            var result =await _genresRepository.GetAllGenresAsync(true, 1, 5);
+            return _mapper.Map<GenresModel[]>(result);
         }
-        
-        [HttpGet("get/{album_id}")]
-        public async Task<ActionResult<AlbumsModel>> Get(int album_id)
-        {
-            var result = await _albumRepo.GetAlbumByIdAsync(album_id, true);
-            if (result == null) return NotFound();
 
-            return _mapper.Map<AlbumsModel>(result);
+        // GET api/values/5
+        [HttpGet("get/{genre_id}")]
+        public async Task<ActionResult<GenresModel>> Get(int genre_id)
+        {
+            var result =await _genresRepository.GetGenresByIdAsync(genre_id, true);
+            if (result == null) return NotFound();
+            return _mapper.Map<GenresModel>(result);            
         }
 
         //// POST api/values

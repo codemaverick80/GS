@@ -35,9 +35,10 @@ namespace GS.Core.Api.MapperProfiles
                 .ForMember(dest=>dest.AlbumId,source=>source.MapFrom(src=>src.Id));
 
 
-
             CreateMap<Tracks, TracksModel>()
                 .ForMember(dest=>dest.TrackId, source=>source.MapFrom(src=>src.Id));
+
+            CreateMap<Genres, GenresModel>();
 
         }
     }

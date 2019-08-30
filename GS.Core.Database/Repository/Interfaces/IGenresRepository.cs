@@ -10,8 +10,9 @@ namespace GS.Core.Database.Repository.Interfaces
     {
 
         Task<Genres> GetGenresByIdAsync(int id, bool includeArtists = false);
-        Task<IEnumerable<Genres>> GetAllGenresAsync(bool includeArtists = false);
-        Task<IEnumerable<Genres>> GetAllGenresAsync(bool includeArtists = false, bool includeSubGenres = false);
+        Task<IEnumerable<Genres>> GetAllGenresAsync(bool includeArtists = false, int pageIndex = 1, int pageSize = 5);
+
+        ///Task<IEnumerable<Genres>> GetAllGenresAsync(bool includeArtists = false, bool includeSubGenres = false);
 
         //IEnumerable<Genres> GetAllWithSubGenres();
         //IEnumerable<Genres> FindWithSubGenres(Func<Genres, bool> expression);

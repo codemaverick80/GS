@@ -9,11 +9,11 @@ namespace GS.Core.Database.Repository.Interfaces
     {
         //Task<IEnumerable<Artists>> GetAllArtistAsync();
 
-        Task<IEnumerable<Artists>> GetAllArtistAsync(bool includeAlbums = false);
+        Task<IEnumerable<Artists>> GetAllArtistAsync(bool includeAlbums = false, int pageIndex = 1, int pageSize = 5);
 
         Task<Artists> GetArtistByIdAsync(int id, bool includeAlbums=false);
 
-        Task<IEnumerable<Artists>> GetArtistsWithAlbumsAsync(int pageIndex, int pageSize);
+       // Task<IEnumerable<Artists>> GetArtistsWithAlbumsAsync(int pageIndex=1, int pageSize=5);
 
 
     }
