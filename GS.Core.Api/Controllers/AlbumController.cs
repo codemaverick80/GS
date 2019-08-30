@@ -26,7 +26,7 @@ namespace GS.Core.Api.Controllers
 
        
         [HttpGet("get")]        
-        public async Task<ActionResult<AlbumsModel[]>> Get()
+        public async Task<ActionResult<IEnumerable<AlbumsModel>>> Get()
         {
             var result = await _albumRepo.GetAlbumsWithTracksAsync(false,1,20);
 

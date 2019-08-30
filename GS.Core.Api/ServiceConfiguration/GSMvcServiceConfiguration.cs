@@ -15,6 +15,8 @@ namespace GS.Core.Api.ServiceConfiguration
 
 
             services.AddSingleton<ILoggerManager, LoggerManager>();
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                  .AddJsonOptions(options => {
                      options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
