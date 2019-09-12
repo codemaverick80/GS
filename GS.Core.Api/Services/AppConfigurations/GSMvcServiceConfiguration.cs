@@ -1,16 +1,15 @@
-﻿using System;
-using GS.Core.Api.Services.LoggerService;
+﻿using GS.Core.Api.Services.LoggerService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace GS.Core.Api.ServiceConfiguration
+namespace GS.Core.Api.Services.AppConfigurations
 {
-    public class GSMvcServiceConfiguration : IGSConfigureService
+    public class GsMvcServiceConfiguration : IGsConfigureService
     {
-        public void GSConfigureService(IServiceCollection services, IConfiguration configuration)
+        public void GsConfigureService(IServiceCollection services, IConfiguration configuration)
         {
 
 

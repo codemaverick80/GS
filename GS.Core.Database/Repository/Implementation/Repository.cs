@@ -11,14 +11,12 @@ namespace GS.Core.Database.Repository.Implementation
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly SGDbContext _context;
+        protected readonly GsDbContext _context;
 
-        public Repository(SGDbContext context)
+        public Repository(GsDbContext context)
         {
             _context = context;
-        }      
-
-
+        } 
         public IQueryable<T> FindAll()
         {           
             return  _context.Set<T>();

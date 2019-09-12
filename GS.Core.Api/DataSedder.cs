@@ -7,7 +7,7 @@ namespace GS.Core.Api
 {
     public class DataSedder
     {
-       public static void Initialize(SGDbContext context)
+       public static void Initialize(GsDbContext context)
         {
             if (!context.Genres.Any())
             {

@@ -28,7 +28,7 @@ namespace GS.Core.Api.Controllers
         [HttpGet("get")]        
         public async Task<ActionResult<IEnumerable<AlbumsModel>>> Get()
         {
-            var result = await _albumRepo.GetAlbumsWithTracksAsync(false,1,20);
+            var result = await _albumRepo.GetAlbumsAsync(false,1,20);
 
             return _mapper.Map<AlbumsModel[]>(result);
         }
@@ -36,7 +36,7 @@ namespace GS.Core.Api.Controllers
         [HttpGet("get/{album_id}")]
         public async Task<ActionResult<AlbumsModel>> Get(int album_id)
         {
-            var result = await _albumRepo.GetAlbumByIdAsync(album_id, true);
+            var result = await _albumRepo.GetAlbumAsync(album_id, true);
             if (result == null) return NotFound();
 
             return _mapper.Map<AlbumsModel>(result);

@@ -5,10 +5,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace GS.Core.Database.Entities
 {
-    public class SGDbContext : DbContext
+    public class GsDbContext : DbContext
     {
         
-        public SGDbContext(DbContextOptions<SGDbContext> options)
+        public GsDbContext(DbContextOptions<GsDbContext> options)
             : base(options)
         {
         }
@@ -30,18 +30,18 @@ namespace GS.Core.Database.Entities
         //            }
         //        }
 
-        public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<SGDbContext>
+        public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<GsDbContext>
         {
-            public SGDbContext CreateDbContext(string[] args)
+            public GsDbContext CreateDbContext(string[] args)
             {
                 IConfigurationRoot configuration = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile(@Directory.GetCurrentDirectory() + "/../SG.Api/appsettings.json")
                     .Build();
-                var builder = new DbContextOptionsBuilder<SGDbContext>();
+                var builder = new DbContextOptionsBuilder<GsDbContext>();
                 var connectionString = configuration.GetConnectionString("DatabaseConnection");
                 builder.UseSqlServer(connectionString);
-                return new SGDbContext(builder.Options);
+                return new GsDbContext(builder.Options);
             }
         }
 

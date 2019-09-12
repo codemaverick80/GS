@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using GS.Core.Api.Extension;
+using GS.Core.Api.MapperProfiles;
 using GS.Core.Api.Options;
-using GS.Core.Api.ServiceConfiguration;
+using GS.Core.Api.Services.AppConfigurations;
 using GS.Core.Api.Services.LoggerService;
 using GS.Core.Database.Entities;
 using GS.Core.Database.Repository.Implementation;
@@ -60,9 +61,11 @@ namespace GS.Core.Api
 
             #endregion
 
-            services.AddAutoMapper(typeof(Startup));
 
-            services.ConfigureGSServicesInAssembly(Configuration);
+           // services.AddAutoMapper(); //Automapper version 4.0.1
+            services.AddAutoMapper(typeof(Startup)); //Automapper version 7.0
+
+            services.ConfigureGsServicesInAssembly(Configuration);
 
         }
 

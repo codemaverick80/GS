@@ -10,35 +10,19 @@ namespace GS.Core.Database.Repository.Implementation
 {
     public class ArtistsRepository:Repository<Artists>,IArtistRepository
     {
-        public ArtistsRepository(SGDbContext context):base(context)
+        public ArtistsRepository(GsDbContext context):base(context)
         {
         }
 
-        //public async Task<IEnumerable<Artists>> GetAllArtistAsync(bool includeAlbums = false)
-        //{
-        //    IQueryable<Artists> query = _context.Artists.Include(a => a.ArtistBasicInfo);
-
-        //    if (includeAlbums)
-        //    {
-        //        query = query
-        //          .Include(artist => artist.Albums.Select(album => album.Album));
-        //    }
-
-        //    // Order It
-        //    query = query.OrderByDescending(artist => artist.Id);
-
-        //    return await query.ToArrayAsync();
-        //}
-
-        public async Task<IEnumerable<Artists>> GetAllArtistAsync(bool includeAlbums = false, int pageIndex = 1, int pageSize = 5)
+        public async Task<IEnumerable<Artists>> GetArtistsAsync(bool includeAlbums = false, int pageIndex = 1, int pageSize = 5)
         { 
+            //_context.Database.ExecuteSqlCommand("WAITFOR DELAY '00:00:02';");
             IQueryable<Artists> query = FindAll().Include(a => a.ArtistBasicInfo);
 
             if (includeAlbums)
             {
                 query = query.Include(artist => artist.Albums);
             }
-
             query.OrderBy(a => a.Id)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize);
@@ -46,10 +30,9 @@ namespace GS.Core.Database.Repository.Implementation
             return await query.ToListAsync();
         }
 
-
-    
-        public async Task<Artists> GetArtistByIdAsync(int id, bool includeAlbums = false)
+        public async Task<Artists> GetArtistAsync(int id, bool includeAlbums = false)
         {
+            //_context.Database.ExecuteSqlCommand("WAITFOR DELAY '00:00:02';");
             IQueryable<Artists> query = FindAll().Include(a=>a.ArtistBasicInfo);
             
             if (includeAlbums)
@@ -61,12 +44,40 @@ namespace GS.Core.Database.Repository.Implementation
 
             ////If record not found, return empty Artists() object. this might be helpfull in some cases
             //return await query.DefaultIfEmpty(new Artists()).FirstOrDefaultAsync();
-
-
             return await query.FirstOrDefaultAsync();
-
+            
         }
 
+        public Artists GetArtist(int id, bool includeAlbums = false)
+        {
+           // _context.Database.ExecuteSqlCommand("WAITFOR DELAY '00:00:02';");
+            IQueryable<Artists> query = FindAll();
+            if (includeAlbums)
+            {
+                query = query.Include(genre => genre.Albums);
+            }
+            query = query.Where(g => g.Id == id);
+            return query.SingleOrDefault();
+        }
+
+        public IEnumerable<Artists> GetArtists(bool includeAlbums = false, int pageIndex = 1, int pageSize = 5)
+        {
+           // _context.Database.ExecuteSqlCommand("WAITFOR DELAY '00:00:02';");
+            IQueryable<Artists> query = FindAll().Include(a => a.ArtistBasicInfo);
+            if (includeAlbums)
+            {
+                query = query.Include(artist => artist.Albums);
+            }
+            query.OrderBy(a => a.Id)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize);
+
+            return query.ToList();
+        }
+
+        
+        
+        
         //public async Task<IEnumerable<Artists>> GetArtistsWithAlbumsAsync(int pageIndex=1, int pageSize=10)
         //{
         //    return await FindAll()

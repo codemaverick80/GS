@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using GS.Core.Database.Entities;
 using Microsoft.AspNetCore;
@@ -16,6 +17,13 @@ namespace GS.Core.Api
     {
         public static void Main(string[] args)
         {
+            
+            /* API Load testing:
+            * Throttle the thread pool (set available threats to amount of processors)
+            */
+            ThreadPool.SetMaxThreads(Environment.ProcessorCount, Environment.ProcessorCount);
+            
+            
             //#### If we are NOT seeding data             
              
             CreateWebHostBuilder(args).Build().Run();

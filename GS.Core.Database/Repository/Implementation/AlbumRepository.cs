@@ -10,11 +10,11 @@ namespace GS.Core.Database.Repository.Implementation
 {
     public class AlbumRepository:Repository<Albums>,IAlbumRepository
     {
-        public AlbumRepository(SGDbContext context):base(context)
+        public AlbumRepository(GsDbContext context):base(context)
         {
         }
 
-        public async Task<Albums> GetAlbumByIdAsync(int id,bool includeTracks = false)
+        public async Task<Albums> GetAlbumAsync(int id,bool includeTracks = false)
         {
             IQueryable<Albums> query = FindAll();
 
@@ -29,7 +29,7 @@ namespace GS.Core.Database.Repository.Implementation
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Albums>> GetAlbumsWithTracksAsync(bool includeTracks = false, int pageIndex = 1, int pageSize = 10)
+        public async Task<IEnumerable<Albums>> GetAlbumsAsync(bool includeTracks = false, int pageIndex = 1, int pageSize = 10)
         {
             return await FindAll()
                 .Include(c => c.Tracks)                
@@ -39,17 +39,30 @@ namespace GS.Core.Database.Repository.Implementation
                 .ToListAsync();
         }
 
-        //public async Task<IEnumerable<Albums>> GetAllAlbumsAsync(bool includeTracks = false, int pageIndex = 1, int pageSize = 10)
-        //{
-        //    IQueryable<Albums> query = FindAll();
-        //    if (includeTracks)
-        //    {
-        //        query = query.Include(a => a.Tracks);
-        //    }
-        //    //Query It
-        //    query.OrderBy(a => a.Id).Skip((pageIndex-1) * pageSize).Take(pageSize);
+        public Albums GetAlbum(int id, bool includeTracks = false)
+        {
+            //_context.Database.ExecuteSqlCommand("WAITFOR DELAY '00:00:02';");
+            IQueryable<Albums> query = FindAll();
+            if (includeTracks)
+            {
+                query = query.Include(genre => genre.Tracks);
+            }
+            query = query.Where(g => g.Id == id);
+            return query.SingleOrDefault();
+        }
 
-        //    return await query.ToListAsync();           
-        //}
+        public IEnumerable<Albums> GetAlbums(bool includeTracks = false, int pageIndex = 1, int pageSize = 5)
+        {
+            IQueryable<Albums> query = FindAll();
+            if (includeTracks)
+            {
+                query = query.Include(artist => artist.Tracks);
+            }
+            query.OrderBy(a => a.Id)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize);
+
+            return query.ToList();
+        }
     }
 }
