@@ -40,7 +40,8 @@ namespace GS.Core.Api.Services.CustomExceptionMiddleware
                 return context.Response.WriteAsync(new ErrorDetails()
                 {
                     StatusCode = context.Response.StatusCode,
-                    Message = "Internal Server Error from the custom middleware."
+                    Endpoint = $"{context.Request.Scheme}://{context.Request.Host.Value}{context.Request.Path}/{context.Request.QueryString}",
+                    Message = $"Internal Server Error from the custom middleware. {exception.Message}"
                 }.ToString());
             }
         }

@@ -34,11 +34,14 @@ namespace GS.Core.Api.Services.AppConfigurations
           */
             services.AddApiVersioning(options =>
             {
-                // reporting api versions will return the headers "api-supported-versions" and "api-deprecated-versions"
-                options.ReportApiVersions = true;
-                options.AssumeDefaultVersionWhenUnspecified = true;
-               // options.ApiVersionReader = new HeaderApiVersionReader("x-api-version");
-                options.DefaultApiVersion=new ApiVersion(1,0);
+               options.ReportApiVersions = true;
+               options.AssumeDefaultVersionWhenUnspecified = true;
+              // options.ApiVersionReader = new HeaderApiVersionReader("x-version");
+               options.ApiVersionReader = ApiVersionReader.Combine(
+                   new HeaderApiVersionReader("x-version"),
+                   new QueryStringApiVersionReader("ver")
+                   );
+               options.DefaultApiVersion=new ApiVersion(1,0);
                 
             } );
             
