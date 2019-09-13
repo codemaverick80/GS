@@ -64,9 +64,8 @@ namespace GS.Core.Api
 
            // services.AddAutoMapper(); //Automapper version 4.0.1
             services.AddAutoMapper(typeof(Startup)); //Automapper version 7.0
-
+            
             services.ConfigureGsServicesInAssembly(Configuration);
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
