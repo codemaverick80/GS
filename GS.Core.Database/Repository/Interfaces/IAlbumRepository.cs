@@ -5,7 +5,7 @@ using GS.Core.Database.Entities;
 
 namespace GS.Core.Database.Repository.Interfaces
 {
-    public interface IAlbumRepository:IRepository<Albums>
+    public interface IAlbumRepository:IRepository<Albums>,IDisposable
     {
         /// <summary>
         /// Returns a single matching album Asynchronously.

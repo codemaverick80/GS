@@ -12,7 +12,7 @@ namespace GS.Core.Database.Entities
         }
 
         public long Id { get; set; }
-        public string Genreid { get; set; }
+        public string Tag { get; set; }
         public string Genre { get; set; }
         public string Description { get; set; }
 

@@ -5,7 +5,7 @@ using GS.Core.Database.Entities;
 
 namespace GS.Core.Database.Repository.Interfaces
 {
-    public interface IArtistRepository:IRepository<Artists>
+    public interface IArtistRepository:IRepository<Artists>,IDisposable
     {
       /// <summary>
       ///  Returns list of artist Asynchronously.

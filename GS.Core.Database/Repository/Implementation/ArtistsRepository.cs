@@ -23,11 +23,12 @@ namespace GS.Core.Database.Repository.Implementation
             {
                 query = query.Include(artist => artist.Albums);
             }
-            query.OrderBy(a => a.Id)
+
+            var result = query.OrderBy(a => a.Id)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize);
 
-            return await query.ToListAsync();
+            return await result.ToListAsync();
         }
 
         public async Task<Artists> GetArtistAsync(int id, bool includeAlbums = false)
@@ -40,11 +41,11 @@ namespace GS.Core.Database.Repository.Implementation
                 query = query.Include(artist => artist.Albums);
             }
             // Query It
-            query = query.Where(c => c.Id == id);
+           var result = query.Where(c => c.Id == id);
 
             ////If record not found, return empty Artists() object. this might be helpfull in some cases
             //return await query.DefaultIfEmpty(new Artists()).FirstOrDefaultAsync();
-            return await query.FirstOrDefaultAsync();
+            return await result.FirstOrDefaultAsync();
             
         }
 
@@ -56,8 +57,8 @@ namespace GS.Core.Database.Repository.Implementation
             {
                 query = query.Include(genre => genre.Albums);
             }
-            query = query.Where(g => g.Id == id);
-            return query.SingleOrDefault();
+           var result = query.Where(g => g.Id == id);
+            return result.SingleOrDefault();
         }
 
         public IEnumerable<Artists> GetArtists(bool includeAlbums = false, int pageIndex = 1, int pageSize = 5)
@@ -68,14 +69,35 @@ namespace GS.Core.Database.Repository.Implementation
             {
                 query = query.Include(artist => artist.Albums);
             }
-            query.OrderBy(a => a.Id)
+           var result=  query.OrderBy(a => a.Id)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize);
 
-            return query.ToList();
+            return result.ToList();
         }
 
-        
+        #region "Disposing"
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    //_context = null;
+                }
+            }
+        }
+
+
+        #endregion
         
         
         //public async Task<IEnumerable<Artists>> GetArtistsWithAlbumsAsync(int pageIndex=1, int pageSize=10)

@@ -1,5 +1,7 @@
-﻿using GS.Core.Api.Services.LoggerService;
+﻿using System.Linq;
+using GS.Core.Api.Services.LoggerService;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,9 +14,25 @@ namespace GS.Core.Api.Services.AppConfigurations
     {
         public void GsConfigureService(IServiceCollection services, IConfiguration configuration)
         {
+            
             services.AddSingleton<ILoggerManager, LoggerManager>();
 
-            services.AddMvc()
+            services.AddMvc(setupAction =>
+                {
+                    setupAction.ReturnHttpNotAcceptable = true;
+                    
+                    var jsonOutputFormatter = setupAction.OutputFormatters
+                        .OfType<JsonOutputFormatter>().FirstOrDefault();
+                    if (jsonOutputFormatter != null)
+                    {
+                        // remove text/json as it isn't the approved media type
+                        // for working with JSON at API level
+                        if (jsonOutputFormatter.SupportedMediaTypes.Contains("text/json"))
+                        {
+                            jsonOutputFormatter.SupportedMediaTypes.Remove("text/json");
+                        }
+                    }
+                })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(options => {
                      options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -42,15 +60,15 @@ namespace GS.Core.Api.Services.AppConfigurations
                    new QueryStringApiVersionReader("ver")
                    );
                options.DefaultApiVersion=new ApiVersion(1,0);
-                
             } );
             
             
             
-            services.AddSwaggerGen(x =>
-            {
-                x.SwaggerDoc("v1", new Info { Title = "SG API", Version = "v1" });
-            });
+            
+//            services.AddSwaggerGen(x =>
+//            {
+//                x.SwaggerDoc("v1", new Info { Title = "SG API", Version = "v1" });
+//            });
 
         }
     }

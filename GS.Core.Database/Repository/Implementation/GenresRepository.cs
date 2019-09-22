@@ -34,11 +34,11 @@ namespace GS.Core.Database.Repository.Implementation
             }
 
             //Query It
-            query.OrderBy(g=>g.Id)
+          var result=  query.OrderBy(g=>g.Id)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize);
 
-            return await query.ToListAsync();
+            return await result.ToListAsync();
         }
         
         
@@ -52,9 +52,9 @@ namespace GS.Core.Database.Repository.Implementation
             }
 
             // Query It
-            query = query.Where(g => g.Id == id);
+           var result = query.Where(g => g.Id == id);
 
-            return await query.SingleOrDefaultAsync();
+            return await result.SingleOrDefaultAsync();
         }
 
         #endregion
@@ -68,8 +68,8 @@ namespace GS.Core.Database.Repository.Implementation
             {
                 query = query.Include(genre => genre.Artists);
             }
-            query = query.Where(g => g.Id == id);
-            return query.SingleOrDefault();
+            var result = query.Where(g => g.Id == id);
+            return result.SingleOrDefault();
         }
 
         public IEnumerable<Genres> GetGenres(bool includeArtists = false, int pageIndex = 1, int pageSize = 5)
@@ -80,11 +80,11 @@ namespace GS.Core.Database.Repository.Implementation
                 query = query.Include(genres => genres.Artists);
             }
             //Query It
-            query.OrderBy(g=>g.Id)
+          var result=  query.OrderBy(g=>g.Id)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize);
 
-            return query.ToList();
+            return result.ToList();
         }
 
         #endregion

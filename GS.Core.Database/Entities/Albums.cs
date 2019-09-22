@@ -11,7 +11,7 @@ namespace GS.Core.Database.Entities
         }
 
         public long Id { get; set; }
-        public string Albumid { get; set; }
+        public string Tag { get; set; }
         public long ArtistId { get; set; }
         public string ArtistName { get; set; }
         public string Year { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
 using GS.Core.Api.Models;
+using GS.Core.Api.Models.Responses;
 using GS.Core.Database.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 namespace GS.Core.Api.Controllers
@@ -19,20 +20,20 @@ namespace GS.Core.Api.Controllers
 
         // GET: api/artist/get
         [HttpGet("get")]
-        public async Task<ActionResult<GenresModel[]>> Get()
+        public async Task<ActionResult<GenreGetResponse[]>> Get()
         {
             var result =await _genresRepository.GetGenresAsync(false, 1, 5);
-            return _mapper.Map<GenresModel[]>(result);
+            return _mapper.Map<GenreGetResponse[]>(result);
         }
 
         //// GET api/genres/get/109
         [HttpGet("get/{id}")]
-        public async Task<ActionResult<GenresModel>> Get(int id)
+        public async Task<ActionResult<GenreGetResponse>> Get(int id)
         {
             
             var result = await _genresRepository.GetGenreAsync(id, true);
             if (result == null) return NotFound();
-            return _mapper.Map<GenresModel>(result);
+            return _mapper.Map<GenreGetResponse>(result);
         }
         
 

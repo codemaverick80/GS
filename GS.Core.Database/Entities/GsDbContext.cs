@@ -54,7 +54,7 @@ namespace GS.Core.Database.Entities
             {
                 entity.ToTable("TBL_ALBUMS");
 
-                entity.HasIndex(e => e.Albumid)
+                entity.HasIndex(e => e.Tag)
                     .HasName("UNQKEY_ALBUMID")
                     .IsUnique();
 
@@ -71,7 +71,7 @@ namespace GS.Core.Database.Entities
                     .HasColumnName("ALBUM_URL")
                     .HasMaxLength(500);
 
-                entity.Property(e => e.Albumid)
+                entity.Property(e => e.Tag)
                     .IsRequired()
                     .HasColumnName("ALBUMID")
                     .HasMaxLength(10)
@@ -164,7 +164,7 @@ namespace GS.Core.Database.Entities
             {
                 entity.ToTable("TBL_ARTISTS");
 
-                entity.HasIndex(e => e.Artistid)
+                entity.HasIndex(e => e.Tag)
                     .HasName("UNQKEY_ARTISTID")
                     .IsUnique();
 
@@ -176,7 +176,7 @@ namespace GS.Core.Database.Entities
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Artistid)
+                entity.Property(e => e.Tag)
                     .IsRequired()
                     .HasColumnName("ARTISTID")
                     .HasMaxLength(10)
@@ -213,7 +213,7 @@ namespace GS.Core.Database.Entities
             {
                 entity.ToTable("TBL_GENRE_STYLES");
 
-                entity.HasIndex(e => e.Styleid)
+                entity.HasIndex(e => e.Tag)
                     .HasName("UNQKEY_STYLEID")
                     .IsUnique();
 
@@ -229,7 +229,7 @@ namespace GS.Core.Database.Entities
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Styleid)
+                entity.Property(e => e.Tag)
                     .IsRequired()
                     .HasColumnName("STYLEID")
                     .HasMaxLength(10)
@@ -249,7 +249,7 @@ namespace GS.Core.Database.Entities
             {
                 entity.ToTable("TBL_GENRES");
 
-                entity.HasIndex(e => e.Genreid)
+                entity.HasIndex(e => e.Tag)
                     .HasName("UNQKEY_GENREID")
                     .IsUnique();
 
@@ -263,7 +263,7 @@ namespace GS.Core.Database.Entities
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Genreid)
+                entity.Property(e => e.Tag)
                     .IsRequired()
                     .HasColumnName("GENREID")
                     .HasMaxLength(10)
@@ -287,7 +287,7 @@ namespace GS.Core.Database.Entities
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Subgenreid)
+                entity.Property(e => e.Tag)
                     .IsRequired()
                     .HasColumnName("SUBGENREID")
                     .HasMaxLength(10)
@@ -305,7 +305,7 @@ namespace GS.Core.Database.Entities
             {
                 entity.ToTable("TBL_TRACKS");
 
-                entity.HasIndex(e => e.Trackid)
+                entity.HasIndex(e => e.Tag)
                     .HasName("UNQKEY_TRACKID")
                     .IsUnique();
 
@@ -341,7 +341,7 @@ namespace GS.Core.Database.Entities
                     .HasMaxLength(400)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Trackid)
+                entity.Property(e => e.Tag)
                     .IsRequired()
                     .HasColumnName("TRACKID")
                     .HasMaxLength(10)

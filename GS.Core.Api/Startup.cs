@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using GS.Core.Api.Extension;
-using GS.Core.Api.MapperProfiles;
 using GS.Core.Api.Options;
 using GS.Core.Api.Services.AppConfigurations;
 using GS.Core.Api.Services.LoggerService;
@@ -58,6 +57,12 @@ namespace GS.Core.Api
             //{
             //    x.SwaggerDoc("v1", new Info { Title = "SG API", Version = "v1" });
             //});
+            
+            
+            services.AddSwaggerGen(x =>
+            {
+                x.SwaggerDoc("v1", new Info { Title = "SG API", Version = "v1" });
+            });
 
             #endregion
 

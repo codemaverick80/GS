@@ -1,17 +1,16 @@
-﻿using System;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using GS.Core.Api.Models;
+using GS.Core.Api.Models.Responses;
 using GS.Core.Database.Entities;
 
-namespace GS.Core.Api.MapperProfiles
+namespace GS.Core.Api.MappingProfiles
 {
     public class EntitiesToModelsProfile : Profile
     {
         public EntitiesToModelsProfile ()
         {
 
-            CreateMap<Artists, ArtistsModel>()
+            CreateMap<Artists, ArtistGetResponse>()
                 .ForMember(dest=> dest.Born, source=>source.MapFrom(src=> src.ArtistBasicInfo.Born))
                 .ForMember(dest => dest.AlsoKnownAs, source => source.MapFrom(src => src.ArtistBasicInfo.Aka))
                 .ForMember(dest => dest.Died, source => source.MapFrom(src => src.ArtistBasicInfo.Died))
@@ -31,14 +30,17 @@ namespace GS.Core.Api.MapperProfiles
                 ;
 
 
-            CreateMap<Albums, AlbumsModel>()
-                .ForMember(dest=>dest.AlbumId,source=>source.MapFrom(src=>src.Id));
+//            CreateMap<Albums, AlbumsModel>()
+//                .ForMember(dest=>dest.ReleaseYear,source=>source.MapFrom(src=>src.Year));
+
+            CreateMap<Albums, AlbumGetResponse>()
+                .ForMember(dest=>dest.ReleaseYear,source=>source.MapFrom(src=>src.Year));
 
 
-            CreateMap<Tracks, TracksModel>()
+            CreateMap<Tracks, TrackGetResponse>()
                 .ForMember(dest=>dest.TrackId, source=>source.MapFrom(src=>src.Id));
 
-            CreateMap<Genres, GenresModel>();
+            CreateMap<Genres, GenreGetResponse>();
 
         }
     }

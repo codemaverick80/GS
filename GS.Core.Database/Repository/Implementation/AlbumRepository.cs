@@ -24,19 +24,24 @@ namespace GS.Core.Database.Repository.Implementation
             }
 
             //Query it
-            query = query.Where(a => a.Id == id);
+            var result = query.Where(a => a.Id == id);
 
-            return await query.FirstOrDefaultAsync();
+            return await result.FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Albums>> GetAlbumsAsync(bool includeTracks = false, int pageIndex = 1, int pageSize = 10)
         {
-            return await FindAll()
-                .Include(c => c.Tracks)                
-                .OrderBy(c => c.Id)
+            IQueryable<Albums> query = FindAll();
+            if (includeTracks)
+            {
+                query = query.Include(a => a.Tracks);
+            }
+            //Query it
+            var result = query.OrderBy(a => a.Id)
                 .Skip((pageIndex - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
+                .Take(pageSize);
+
+            return await result.ToListAsync();
         }
 
         public Albums GetAlbum(int id, bool includeTracks = false)
@@ -47,8 +52,8 @@ namespace GS.Core.Database.Repository.Implementation
             {
                 query = query.Include(genre => genre.Tracks);
             }
-            query = query.Where(g => g.Id == id);
-            return query.SingleOrDefault();
+          var result = query.Where(g => g.Id == id);
+           return result.SingleOrDefault();
         }
 
         public IEnumerable<Albums> GetAlbums(bool includeTracks = false, int pageIndex = 1, int pageSize = 5)
@@ -58,11 +63,34 @@ namespace GS.Core.Database.Repository.Implementation
             {
                 query = query.Include(artist => artist.Tracks);
             }
-            query.OrderBy(a => a.Id)
+           var result= query.OrderBy(a => a.Id)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize);
 
-            return query.ToList();
+            return result.ToList();
         }
+        
+        #region "Disposing"
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    //_context = null;
+                }
+            }
+        }
+
+
+        #endregion
     }
 }

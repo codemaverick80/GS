@@ -6,7 +6,7 @@ namespace GS.Core.Database.Entities
     public class Tracks
     {
         public int Id { get; set; }
-        public string Trackid { get; set; }
+        public string Tag { get; set; }
         public long AlbumId { get; set; }
         public string Title { get; set; }
         public string Composer { get; set; }
