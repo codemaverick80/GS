@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using GS.Core.Api.Contracts.V1.Responses;
 using GS.Core.Api.Models;
-using GS.Core.Api.Models.Responses;
 using GS.Core.Database.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,13 +17,13 @@ namespace GS.Core.Api.Controllers
             _genresRepository = genresRepository;
             _mapper = mapper;
         }
-        
-        
+
+
         // GET api/values/5
         [HttpGet("get/{genre_id}")]
         public ActionResult<GenreGetResponse> Get(int genre_id)
         {
-            var result =  _genresRepository.GetGenre(genre_id, true);
+            var result = _genresRepository.GetGenre(genre_id, true);
             if (result == null) return NotFound();
             return _mapper.Map<GenreGetResponse>(result);
         }

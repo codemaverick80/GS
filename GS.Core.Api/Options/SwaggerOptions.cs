@@ -1,10 +1,10 @@
-﻿using System;
-namespace GS.Core.Api.Options
-{
-    public class SwaggerOptions
-    {
-        public string JsonRoute { get; set; }
-        public string Description { get; set; }
-        public string UiEndpoint { get; set; }
-    }
-}
+﻿//using System;
+//namespace GS.Core.Api.Options
+//{
+//    public class SwaggerOptions
+//    {
+//        public string JsonRoute { get; set; }
+//        public string Description { get; set; }
+//        public string UiEndpoint { get; set; }
+//    }
+//}

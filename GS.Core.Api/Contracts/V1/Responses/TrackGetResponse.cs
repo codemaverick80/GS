@@ -1,4 +1,4 @@
-﻿namespace GS.Core.Api.Models.Responses
+﻿namespace GS.Core.Api.Contracts.V1.Responses
 {
     public class TrackGetResponse
     {

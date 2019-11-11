@@ -40,9 +40,11 @@ namespace GS.Core.Database.Repository.Interfaces
         /// <param name="pageSize">default 5</param>
         /// <returns></returns>
         IEnumerable<Genres> GetGenres(bool includeArtists = false, int pageIndex = 1, int pageSize = 5);
-        
-        
-        
-        
+
+
+
+        Task<bool> SaveChangesAsync();
+
+
     }
 }

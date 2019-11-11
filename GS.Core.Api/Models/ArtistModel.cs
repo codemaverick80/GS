@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using GS.Core.Api.Models.Responses;
 
 namespace GS.Core.Api.Models
 {

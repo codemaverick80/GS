@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using GS.Core.Api.Models;
-using GS.Core.Api.Models.Responses;
+using GS.Core.Api.Contracts.V1.Requests;
+using GS.Core.Api.Contracts.V1.Responses;
 using GS.Core.Database.Entities;
 
 namespace GS.Core.Api.MappingProfiles
@@ -41,6 +41,19 @@ namespace GS.Core.Api.MappingProfiles
                 .ForMember(dest=>dest.TrackId, source=>source.MapFrom(src=>src.Id));
 
             CreateMap<Genres, GenreGetResponse>();
+
+          
+            
+            
+            CreateMap<Genres, GenreCreateRequest>()
+                .ForMember(dest => dest.Id, source => source.MapFrom(src => src.Id))
+                .ForMember(dest => dest.GenreName, source => source.MapFrom(src => src.Genre))
+                .ForMember(dest => dest.Description, source => source.MapFrom(src => src.Description));
+
+            CreateMap<GenreCreateRequest,Genres>()
+                .ForMember(dest => dest.Id, source => source.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Genre, source => source.MapFrom(src => src.GenreName))
+                .ForMember(dest => dest.Description, source => source.MapFrom(src => src.Description));
 
         }
     }

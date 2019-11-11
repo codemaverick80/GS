@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using GS.Core.Api.Contracts.V1.Responses;
 using GS.Core.Api.Models;
-using GS.Core.Api.Models.Responses;
 using GS.Core.Database.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,10 +33,10 @@ namespace GS.Core.Api.Controllers
         // GET api/artist/107
         [HttpGet("get/{id}")]
         public async Task<ActionResult<ArtistGetResponse>> Get(int id)
-        {            
-                var dbresult = await _artistRepo.GetArtistAsync(id, true);
-                if (dbresult == null) return NotFound();
-                return _mapper.Map<ArtistGetResponse>(dbresult);            
+        {
+            var dbresult = await _artistRepo.GetArtistAsync(id, true);
+            if (dbresult == null) return NotFound();
+            return _mapper.Map<ArtistGetResponse>(dbresult);
         }
 
 

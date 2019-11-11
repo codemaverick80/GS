@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GS.Core.Api.Models.Responses
+namespace GS.Core.Api.Contracts.V1.Responses
 {
     public class GenreGetResponse
     {
@@ -9,6 +9,6 @@ namespace GS.Core.Api.Models.Responses
         public string Genre { get; set; }
         public string Description { get; set; }
 
-        public ICollection<ArtistGetResponse> Artists { get; set; }
+       // public ICollection<ArtistGetResponse> Artists { get; set; }
     }
 }

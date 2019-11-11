@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using GS.Core.Api.Contracts.V1.Responses;
 using GS.Core.Api.Models;
-using GS.Core.Api.Models.Responses;
 using GS.Core.Database.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,14 +24,14 @@ namespace GS.Core.Api.Controllers
             _albumRepo = albumRepository;
             _mapper = mapper;
         }
-        [HttpGet("get")]        
+        [HttpGet("get")]
         public async Task<ActionResult<IEnumerable<AlbumGetResponse>>> Get()
         {
-            var result = await _albumRepo.GetAlbumsAsync(false,1,5);
+            var result = await _albumRepo.GetAlbumsAsync(false, 1, 5);
 
             return _mapper.Map<AlbumGetResponse[]>(result);
         }
-        
+
         [HttpGet("get/{album_id}")]
         public async Task<ActionResult<AlbumGetResponse>> Get(int album_id)
         {
